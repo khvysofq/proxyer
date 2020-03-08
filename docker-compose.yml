@@ -1,0 +1,49 @@
+version: "3.7"
+services:
+  install:
+    image: registry.cn-hangzhou.aliyuncs.com/proxyer/proxyer/proxyer:v1.0.1
+    command: /bin/sh /opt/bin/install.sh "${PROXYER_PUBLIC_HOST}:6789" 
+    volumes:
+      - /mnt/data/proxyer:/opt/proxyer
+    restart: "no"
+  proxyer-server:
+    image: registry.cn-hangzhou.aliyuncs.com/proxyer/proxyer/proxyer:v1.0.1
+    command: /opt/bin/pdns -bind="0.0.0.0:6789" -etcd="127.0.0.1:2379" -pip="${PROXYER_PUBLIC_HOST}"
+    network_mode: host
+    extra_hosts:
+      - "${PROXYER_PUBLIC_HOST}:127.0.0.1"
+    volumes:
+      - /mnt/data/proxyer:/opt/proxyer
+    depends_on:
+      - etcd
+    restart: on-failure
+    logging:
+        driver: "json-file"
+        options:
+            max-file: "5"
+            max-size: "10m"
+  proxyer-turn:
+    image: registry.cn-hangzhou.aliyuncs.com/proxyer/proxyer/proxyer:v1.0.1
+    command: /opt/bin/stp -sign="0.0.0.0:6544" -pip="${PROXYER_PUBLIC_HOST}" -etcd="127.0.0.1:2379" -pdns="127.0.0.1:6789"
+    network_mode: host
+    depends_on:
+      - etcd
+    restart: on-failure
+    logging:
+        driver: "json-file"
+        options:
+            max-file: "5"
+            max-size: "10m"
+  etcd:
+    image: registry.cn-hangzhou.aliyuncs.com/proxyer/proxyer/etcd:v3.0
+    command: /usr/local/bin/etcd --name proxyer-etcd --data-dir /etcd-data --listen-client-urls http://0.0.0.0:2379 --advertise-client-urls http://0.0.0.0:2379 --listen-peer-urls http://0.0.0.0:2380 --initial-advertise-peer-urls http://0.0.0.0:2380 --initial-cluster proxyer-etcd=http://0.0.0.0:2380 --initial-cluster-token proxyer
+    ports:
+      - "2379:2379"
+    volumes:
+      - /mnt/data/proxyer/etcd:/etcd-data
+    restart: on-failure
+    logging:
+        driver: "json-file"
+        options:
+            max-file: "5"
+            max-size: "10m"
