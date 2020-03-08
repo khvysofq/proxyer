@@ -5,6 +5,7 @@
 
 - [项目地址 github](https://github.com/khvysofq/proxyer)
 - [项目地址 gitee](https://gitee.com/guangleihe/proxyer)
+- [试用地址 http://test.proxyer.cn:6789/](http://test.proxyer.cn:6789/static/search.html) 访问密码：12345678
 
 现在市面上的内网映射工具，大部分都是收费的，收费的同时一般也只能够提供有限的网络带宽。造成这个问题最主要的原因是流量本来就非常贵，无论是谁提供内网映射服务都绕不过这个问题，而免费的内网映射工具，更无法保证提供优质的服务了。
 
@@ -14,7 +15,6 @@
 
 Proxyer是一个允许随意搭建的新一代的内网映射工具，借助于公网服务器和内网客户端，可以将内网电脑的任意IP地址和端口映射到公网服务器上。整个过程完全自动化，对内网的依赖极小，只要客户端能够连接外网服务器，就能够实现端口映射。
 
-[试用地址 http://test.proxyer.cn:6789/](http://test.proxyer.cn:6789/static/search.html) 访问密码：12345678
 
 使用Proxyer，您可以
 - 远程使用Windows远程桌面
