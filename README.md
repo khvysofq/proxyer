@@ -72,5 +72,5 @@ PROXYER_PUBLIC_HOST={你的公网IP地址或者域名} docker-compose up -d
 # 其它
 
 - 安装使用可以查看[WIKI https://gitee.com/guangleihe/proxyer/wikis/home](https://gitee.com/guangleihe/proxyer/wikis/home)
-- 当然Proxyer还处于初级版本，有问题可以在本项目中的[Issues https://gitee.com/guangleihe/proxyer/wikis/home](https://gitee.com/guangleihe/proxyer/issues)提
+- 当然Proxyer还处于初级版本，有问题可以在本项目中的Issues提
 - 如果定制化或者大规模应用，可以发邮件咨询: runimgservices@163.com
